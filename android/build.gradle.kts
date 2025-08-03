@@ -1,13 +1,11 @@
 buildscript {
-    ext.kotlin_version = '1.9.22' // **** تم تحديث إصدار Kotlin ****
     repositories {
         google()
         mavenCentral()
     }
-
     dependencies {
-        classpath 'com.android.tools.build:gradle:8.4.0' // **** تم تحديث إصدار Gradle Plugin ****
-        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
+        classpath("com.android.tools.build:gradle:8.4.0") // إصدار Gradle Plugin
+        classpath("org.jetbrains.kotlin:kotlin-gradle-plugin:1.9.22") // إصدار Kotlin
     }
 }
 
@@ -18,12 +16,12 @@ allprojects {
     }
 }
 
-rootProject.buildDir = file('../build')
+rootProject.buildDir = File(rootProject.projectDir, "../build")
 
 subprojects {
-    project.buildDir = file("${rootProject.buildDir}/${project.name}")
+    project.buildDir = File(rootProject.buildDir, project.name)
 }
 
-tasks.register("clean", Delete) {
-    delete rootProject.buildDir
+tasks.register("clean", org.gradle.api.tasks.Delete::class) {
+    delete(rootProject.buildDir)
 }
