@@ -9,15 +9,16 @@ environment:
 
 dependencies:
   flutter:
-    sdk: flutter # يجب أن تكون هذه فقط لـ flutter SDK
+    sdk: flutter
 
   cupertino_icons: ^1.0.8
   provider: ^6.1.1
-  appwrite: ^12.0.0
+  appwrite: ^17.1.0 # إذا كنت تريد 12.0.0، اتركها. لو تريد أحدث، ضع ^17.1.0
   shared_preferences: ^2.2.3
   uuid: ^4.3.3
-  geolocator: ^11.0.0 # الآن موجودة مرة واحدة فقط وبشكل صحيح
+  geolocator: ^11.0.0 # إذا كنت تريد 11.0.0، اتركها. لو تريد أحدث، ضع ^14.0.2
   geocoding: ^3.0.0
+  flutter_web_auth_2: ^4.1.0 # **** يجب إضافة هذا السطر مجدداً ****
 
 dev_dependencies:
   flutter_test:
