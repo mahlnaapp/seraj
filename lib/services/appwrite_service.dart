@@ -2,13 +2,11 @@
 import 'package:flutter/foundation.dart';
 import 'package:appwrite/appwrite.dart';
 import 'package:appwrite/models.dart';
-// import 'package:appwrite/query.dart'; // **** هذا السطر لم يعد ضرورياً ويمكن إزالته ****
 
 import '../models/order.dart';
 import '../models/store.dart';
 import '../models/product.dart';
-import '../models/category.dart'
-    as app_category; // **** تأكد من هذا الاستيراد إذا كانت هناك فئات ****
+import '../models/category.dart' as app_category;
 
 class AppwriteService {
   late Client client;
@@ -26,8 +24,7 @@ class AppwriteService {
   AppwriteService._internal() {
     client = Client()
         .setEndpoint('https://fra.cloud.appwrite.io/v1')
-        .setProject('6887ee78000e74d711f1')
-        .setSelfSigned(status: true); // قد تحتاج إلى إزالة هذا في بيئة الإنتاج
+        .setProject('6887ee78000e74d711f1'); // ✅ تمت إزالة setSelfSigned
 
     databases = Databases(client);
     account = Account(client);
@@ -81,10 +78,9 @@ class AppwriteService {
         documentId: ID.unique(),
         data: orderData,
         permissions: [
-          Permission.read(Role.any()), // يمكن لأي شخص قراءتها
+          Permission.read(Role.any()),
           Permission.update(Role.user(orderData['userId'])),
           Permission.delete(Role.user(orderData['userId'])),
-          // تأكد من أن userId موجود في orderData وإلا سيحدث خطأ
         ],
       );
       return response;
@@ -99,14 +95,11 @@ class AppwriteService {
 
   Future<List<Store>> getAllStores() async {
     try {
-      // **** هذا هو الكود الحالي. لا توجد تصفية جغرافية هنا.
-      // **** سيتم جلب عدد محدود من المتاجر (100) ثم تصفيتها في HomeScreen.
       final DocumentList response = await databases.listDocuments(
         databaseId: 'mahllnadb',
-        collectionId: 'Stores', // تأكد من اسم الـ Collection (Stores / stores)
+        collectionId: 'Stores',
         queries: [
-          Query.limit(
-              100), // يمكنك زيادة هذا الحد إذا كان لديك متاجر أكثر بكثير
+          Query.limit(100),
           Query.orderAsc('name'),
         ],
       );
@@ -124,7 +117,7 @@ class AppwriteService {
     try {
       final DocumentList response = await databases.listDocuments(
         databaseId: 'mahllnadb',
-        collectionId: 'Stores', // تأكد من اسم الـ Collection
+        collectionId: 'Stores',
         queries: [
           Query.search('name', query),
           Query.limit(100),
@@ -145,7 +138,7 @@ class AppwriteService {
     try {
       final DocumentList response = await databases.listDocuments(
         databaseId: 'mahllnadb',
-        collectionId: 'categories', // تأكد من اسم الـ Collection
+        collectionId: 'categories',
         queries: [
           Query.limit(100),
           Query.orderAsc('name'),
@@ -185,7 +178,7 @@ class AppwriteService {
 
       final DocumentList response = await databases.listDocuments(
         databaseId: 'mahllnadb',
-        collectionId: 'products', // تأكد من اسم الـ Collection
+        collectionId: 'products',
         queries: queries,
       );
       return response.documents
@@ -204,7 +197,7 @@ class AppwriteService {
     try {
       final DocumentList response = await databases.listDocuments(
         databaseId: 'mahllnadb',
-        collectionId: 'orders', // تأكد من اسم الـ Collection
+        collectionId: 'orders',
         queries: [
           Query.equal('userId', userId),
           Query.orderDesc('orderDate'),

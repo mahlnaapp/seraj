@@ -22,7 +22,7 @@ class _BottomNavBarScreenState extends State<BottomNavBarScreen> {
   static final List<Widget> _widgetOptions = <Widget>[
     const HomeScreen(), // تعرض المتاجر الآن
     const MyOrdersSoonScreen(), // لعرض الطلبات السابقة
-    const SearchScreen(), // للبحث عن المتاجر
+    const MyOrdersSoonScreen(), // للبحث عن المتاجر
   ];
 
   void _onItemTapped(int index) {
